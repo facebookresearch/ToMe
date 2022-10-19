@@ -55,10 +55,10 @@ def benchmark(
         with torch.no_grad():
             for i in tqdm(range(runs), disable=not verbose, desc="Benchmarking"):
                 if i == warm_up:
-                    total = 0
-                    start = time.time()
                     if is_cuda:
                         torch.cuda.synchronize()
+                    total = 0
+                    start = time.time()
 
                 model(input)
                 total += batch_size
