@@ -26,6 +26,7 @@ This repo does not include models or training code. Instead, we provide a set of
  - [x] [🔗](#using-swag-models-through-torch-hub) [swag](https://github.com/facebookresearch/SWAG)
  - [x] [🔗](#training-with-mae) [mae](https://github.com/facebookresearch/mae)
  - [ ] [🔗](#applying-tome-to-stable-diffusion) [stable diffusion](https://github.com/CompVis/stable-diffusion) (coming soon)
+ - [ ] Video MAE finetuning (coming soon).  
 
 See the `examples/` directory for a set of usage examples.
 
