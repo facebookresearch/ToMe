@@ -1,0 +1,18 @@
+name: tome
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python>=3.8
+  - pip
+  - cudatoolkit
+  - pytorch>=1.12.1
+  - torchvision
+  - numpy
+  - timm==0.4.12
+  - jupyter
+  - pip:
+    - pillow
+    - tqdm
+    - scipy
