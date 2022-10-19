@@ -117,10 +117,6 @@ def apply_patch(
     the shelf. For trianing and for evaluating MAE models off the self set this to be False.
     """
 
-    if model.__class__ == ToMeVisionTransformer:
-        # This model was already patched!
-        return
-
     model.__class__ = ToMeVisionTransformer
     model.r = 0
     model._tome_info = {
@@ -130,8 +126,11 @@ def apply_patch(
         "trace_source": trace_source,
         "prop_attn": prop_attn,
         "class_token": model.cls_token is not None,
-        "distill_token": model.dist_token is not None,
+        "distill_token": False,
     }
+
+    if hasattr(model, "dist_token") and model.dist_token is not None:
+        model._tome_info["distill_token"] = True
 
     for module in model.modules():
         if isinstance(module, Block):
