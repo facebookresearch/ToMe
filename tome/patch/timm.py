@@ -29,7 +29,7 @@ class ToMeBlock(Block):
         # Note: this is copied from timm.models.vision_transformer.Block with modifications.
         attn_size = self._tome_info["size"] if self._tome_info["prop_attn"] else None
         x_attn, metric = self.attn(self.norm1(x), attn_size)
-        x = x + self.drop_path(x_attn)
+        x = x + self.drop_path1(x_attn)
 
         r = self._tome_info["r"].pop(0)
         if r > 0:
@@ -46,7 +46,7 @@ class ToMeBlock(Block):
                 )
             x, self._tome_info["size"] = merge_wavg(merge, x, self._tome_info["size"])
 
-        x = x + self.drop_path(self.mlp(self.norm2(x)))
+        x = x + self.drop_path2(self.mlp(self.norm2(x)))
         return x
 
 
@@ -62,18 +62,13 @@ class ToMeAttention(Attention):
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         # Note: this is copied from timm.models.vision_transformer.Attention with modifications.
         B, N, C = x.shape
-        qkv = (
-            self.qkv(x)
-            .reshape(B, N, 3, self.num_heads, C // self.num_heads)
-            .permute(2, 0, 3, 1, 4)
-        )
-        q, k, v = (
-            qkv[0],
-            qkv[1],
-            qkv[2],
-        )  # make torchscript happy (cannot use tensor as tuple)
+        qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+        q, k, v = qkv.unbind(0)   # make torchscript happy (cannot use tensor as tuple)
+        print(k.shape, x.shape)
 
         attn = (q @ k.transpose(-2, -1)) * self.scale
+        attn = attn.softmax(dim=-1)
+        attn = self.attn_drop(attn)
 
         # Apply proportional attention
         if size is not None:
