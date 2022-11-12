@@ -25,11 +25,17 @@ class ToMeBlock(Block):
      - Compute and propogate token size and potentially the token sources.
     """
 
+    def _drop_path1(self, x):
+        return self.drop_path1(x) if hasattr(self, "drop_path1") else self.drop_path(x)
+
+    def _drop_path2(self, x):
+        return self.drop_path2(x) if hasattr(self, "drop_path2") else self.drop_path(x)
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Note: this is copied from timm.models.vision_transformer.Block with modifications.
         attn_size = self._tome_info["size"] if self._tome_info["prop_attn"] else None
         x_attn, metric = self.attn(self.norm1(x), attn_size)
-        x = x + self.drop_path(x_attn)
+        x = x + self._drop_path1(x_attn)
 
         r = self._tome_info["r"].pop(0)
         if r > 0:
@@ -46,7 +52,7 @@ class ToMeBlock(Block):
                 )
             x, self._tome_info["size"] = merge_wavg(merge, x, self._tome_info["size"])
 
-        x = x + self.drop_path(self.mlp(self.norm2(x)))
+        x = x + self._drop_path2(self.mlp(self.norm2(x)))
         return x
 
 
