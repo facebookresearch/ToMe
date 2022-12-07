@@ -95,6 +95,12 @@ Here are some results *after training* on ImageNet-1k val using a V100 for evalu
 | ViT-L/16       |        85.66 |            93 |  8 |    85.05 |       183 |
 | ViT-H/14       |        86.88 |            35 |  7 |    86.47 |        63 |
 
+As a sanity check, here is our baseline result *without training* for an off-the-shelf ViT-L model as described in Table 1 of the paper:
+
+| Model          | original acc | original im/s |  r | ToMe acc | ToMe im/s |
+|----------------|-------------:|--------------:|:--:|---------:|----------:|
+| ViT-L/16       |        85.96 |            93 |  8 |    84.22 |       183 |
+
 
 ### Applying ToMe to Stable Diffusion
 

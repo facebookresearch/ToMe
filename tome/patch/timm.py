@@ -96,18 +96,21 @@ class ToMeAttention(Attention):
         return x, k.mean(1)
 
 
-class ToMeVisionTransformer(VisionTransformer):
-    """
-    Modifications:
-     - Initialize r, token size, and token sources.
-    """
+def make_tome_class(transformer_class):
+    class ToMeVisionTransformer(transformer_class):
+        """
+        Modifications:
+        - Initialize r, token size, and token sources.
+        """
 
-    def forward(self, *args, **kwdargs) -> torch.Tensor:
-        self._tome_info["r"] = parse_r(len(self.blocks), self.r)
-        self._tome_info["size"] = None
-        self._tome_info["source"] = None
+        def forward(self, *args, **kwdargs) -> torch.Tensor:
+            self._tome_info["r"] = parse_r(len(self.blocks), self.r)
+            self._tome_info["size"] = None
+            self._tome_info["source"] = None
 
-        return super().forward(*args, **kwdargs)
+            return super().forward(*args, **kwdargs)
+
+    return ToMeVisionTransformer
 
 
 def apply_patch(
@@ -122,6 +125,7 @@ def apply_patch(
     For proportional attention, set prop_attn to True. This is only necessary when evaluating models off
     the shelf. For trianing and for evaluating MAE models off the self set this to be False.
     """
+    ToMeVisionTransformer = make_tome_class(model.__class__)
 
     model.__class__ = ToMeVisionTransformer
     model.r = 0
