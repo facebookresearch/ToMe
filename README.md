@@ -95,7 +95,9 @@ Here are some results *after training* on ImageNet-1k val using a V100 for evalu
 | ViT-L/16       |        85.66 |            93 |  8 |    85.05 |       183 |
 | ViT-H/14       |        86.88 |            35 |  7 |    86.47 |        63 |
 
-As a sanity check, here is our baseline result *without training* for an off-the-shelf ViT-L model as described in Table 1 of the paper:
+Note that the original models in this table were also trained by us.
+
+As a sanity check, here is our baseline result *without training* using the off-the-shelf ViT-L model available [here](https://github.com/facebookresearch/mae/blob/main/FINETUNE.md) as described in Table 1 of the paper:
 
 | Model          | original acc | original im/s |  r | ToMe acc | ToMe im/s |
 |----------------|-------------:|--------------:|:--:|---------:|----------:|
