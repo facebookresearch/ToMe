@@ -15,13 +15,16 @@ Token Merging (ToMe) allows you to take an existing Vision Transformer architect
 ToMe merges tokens based on their similarity, implicitly grouping parts of objects together. This is in contrast to token pruning, which only removes background tokens. ToMe can get away with reducing more tokens because we can merge redundant foreground tokens in addition to background ones. Visualization of merged tokens on ImageNet-1k val using a trained ViT-H/14 MAE model with ToMe. See [this example](examples/2_visualization_timm.ipynb) for how to produce these visualizations. For more, see the paper appendix.
 
 
+## News
+ - **[2023.01.30]** We've released checkpoints trained with ToMe for DeiT-Ti, DeiT-S, ViT-B, ViT-L, and ViT-H!
+ - **[2022.10.18]** Initial release.
+
 ## Installation
 See [INSTALL.md](INSTALL.md) for installation details.
 
-
 ## Usage
 
-This repo does not include models or training code. Instead, we provide a set of tools to patch existing vision transformer implementations. Then, you can use those implementations out of the box. Currently, we support the following ViT implementations:
+This repo does not include training code. Instead, we provide a set of tools to patch existing vision transformer implementations. Then, you can use those implementations out of the box. Currently, we support the following ViT implementations:
  - [x] [🔗](#using-timm-models) [timm](https://github.com/rwightman/pytorch-image-models)
  - [x] [🔗](#using-swag-models-through-torch-hub) [swag](https://github.com/facebookresearch/SWAG)
  - [x] [🔗](#training-with-mae) [mae](https://github.com/facebookresearch/mae)
@@ -56,6 +59,12 @@ Here are some expected results when using the timm implementation *off-the-shelf
 
 See the paper for full results with all models and all values of `r`.
 
+We've trained some DeiT (v1) models using [the official implementation](https://github.com/facebookresearch/deit]). To use, instantiate a DeiT timm model, patch it with the timm patch (`prop_attn=True`), and use ImageNet mean and variance for data loading.
+
+| Model      | original acc | original im/s | r  | ToMe acc | ToMe im/s | Checkpoint                                                                  |
+|------------|--------------|---------------|----|----------|-----------|-----------------------------------------------------------------------------|
+| DeiT-S/16  | 79.8         | 930           | 13 | 79.36    | 1550      | [deit_S_r13](https://dl.fbaipublicfiles.com/tome/f367470145_deit_S_r13.pth) |
+| DeiT-Ti/16 | 71.8         | 2558          | 13 | 71.27    | 3980      | [deit_T_r13](https://dl.fbaipublicfiles.com/tome/f367470145_deit_T_r13.pth) |
 
 ### Using SWAG models through Torch Hub
 
@@ -89,13 +98,13 @@ We fine-tune models models pretrained with MAE using the [official MAE codebase]
 
 Here are some results *after training* on ImageNet-1k val using a V100 for evaluation:
 
-| Model          | original acc | original im/s |  r | ToMe acc | ToMe im/s |
-|----------------|-------------:|--------------:|:--:|---------:|----------:|
-| ViT-B/16       |        83.62 |           309 | 16 |    81.91 |       603 |
-| ViT-L/16       |        85.66 |            93 |  8 |    85.05 |       183 |
-| ViT-H/14       |        86.88 |            35 |  7 |    86.47 |        63 |
+| Model    | original acc | original im/s | r  | ToMe acc | ToMe im/s | Checkpoint                                                                      |
+|----------|--------------|---------------|----|----------|-----------|---------------------------------------------------------------------------------|
+| ViT-B/16 | 83.62        | 309           | 16 | 81.91    | 603       | [vit_B_16_r16](https://dl.fbaipublicfiles.com/tome/f367082919_vit_B_16_r16.pth) |
+| ViT-L/16 | 85.66        | 93            | 8  | 85.09    | 183       | [vit_L_16_r8](https://dl.fbaipublicfiles.com/tome/f366894475_vit_L_16_r8.pth)   |
+| ViT-H/14 | 86.88        | 35            | 7  | 86.46    | 63        | [vit_H_14_r7](https://dl.fbaipublicfiles.com/tome/f366895717_vit_H_14_r7.pth)   |
 
-Note that the original models in this table were also trained by us.
+To use the checkpoints, apply the MAE patch (`tome.patch.mae`) to an MAE model from the [official MAE codebase](https://github.com/facebookresearch/mae) as shown in [this example](examples/4_example_mae.py). Pass `global_pool=True` to the vit mae constructors and use ImageNet mean for data loading. For the models we trained (above checkpoints), we used `prop_attn=True` when patching with ToMe, but leave that as `False` for off-the-shelf models. Note that the original models in this table were also trained by us.
 
 As a sanity check, here is our baseline result *without training* using the off-the-shelf ViT-L model available [here](https://github.com/facebookresearch/mae/blob/main/FINETUNE.md) as described in Table 1 of the paper:
 
