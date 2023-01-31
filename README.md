@@ -16,6 +16,7 @@ ToMe merges tokens based on their similarity, implicitly grouping parts of objec
 
 
 ## News
+ - **[2023.01.31]** We are happy to announce that our paper has been accepted for an oral presentation at ICLR 2023.
  - **[2023.01.30]** We've released checkpoints trained with ToMe for DeiT-Ti, DeiT-S, ViT-B, ViT-L, and ViT-H!
  - **[2022.10.18]** Initial release.
 
@@ -132,10 +133,10 @@ Please refer to the [CC-BY-NC 4.0](LICENSE). For contributing, see [contributing
 ## Citation
 If you use ToMe or this repository in your work, please cite:
 ```
-@article{bolya2022tome,
+@inproceedings{bolya2022tome,
   title={Token Merging: Your {ViT} but Faster},
   author={Bolya, Daniel and Fu, Cheng-Yang and Dai, Xiaoliang and Zhang, Peizhao and Feichtenhofer, Christoph and Hoffman, Judy},
-  journal={arXiv:2210.09461 [cs.CV]},
-  year={2022}
+  booktitle={International Conference on Learning Representations},
+  year={2023}
 }
 ```
