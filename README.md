@@ -127,7 +127,7 @@ Of course, running stable diffusion at this size is kind of rediculous. We prese
 
 ## License and Contributing
 
-Please refer to the [CC-BY-NC 4.0.](LICENSE). For contributing, see [contributing](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md).
+Please refer to the [CC-BY-NC 4.0](LICENSE). For contributing, see [contributing](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Citation
 If you use ToMe or this repository in your work, please cite:
