@@ -16,6 +16,7 @@ ToMe merges tokens based on their similarity, implicitly grouping parts of objec
 
 
 ## News
+ - **[2023.02.08]** We are delighted to announce that the Meta Research Blog has highlighted our work, Token Merging! Check out the article at Meta Research Blog for more information.
  - **[2023.01.31]** We are happy to announce that our paper has been accepted for an oral presentation at ICLR 2023.
  - **[2023.01.30]** We've released checkpoints trained with ToMe for DeiT-Ti, DeiT-S, ViT-B, ViT-L, and ViT-H!
  - **[2022.10.18]** Initial release.
