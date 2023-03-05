@@ -16,8 +16,8 @@ from timm.models.vision_transformer import Attention, Block, VisionTransformer
 
 from tome.merge import bipartite_soft_matching, merge_source, merge_wavg
 from tome.utils import parse_r
-
-
+from torch.nn import MultiheadAttention
+from xformers.ops.fmha import memory_efficient_attention_forward
 class ToMeBlock(Block):
     """
     Modifications:
@@ -68,6 +68,7 @@ class ToMeAttention(Attention):
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         # Note: this is copied from timm.models.vision_transformer.Attention with modifications.
         B, N, C = x.shape
+
         qkv = (
             self.qkv(x)
             .reshape(B, N, 3, self.num_heads, C // self.num_heads)
