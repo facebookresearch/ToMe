@@ -115,18 +115,6 @@ As a sanity check, here is our baseline result *without training* using the off-
 | ViT-L/16       |        85.96 |            93 |  8 |    84.22 |       183 |
 
 
-### Applying ToMe to Stable Diffusion
-
-[Stable Diffusion](https://github.com/CompVis/stable-diffusion) is a large open-source text-to-image model that uses a transformer unet backbone. ToMe can be applied to the unet model to increase inference speed and reduce memory usage. An implementation of ToMe for Stable Diffusion is on its way, but for now here are some 4k (3840x2176) wallpapers generated natively in PyTorch on one 4090 GPU with stable diffusion + ToMe in under 2 minutes:
-
-![Old World Wallpaper](examples/images/wallpapers/old_world.jpg)
-
-![Cherry Blossoms Wallpaper](examples/images/wallpapers/cherry_blossoms.jpg)
-
-See [examples](examples/images/wallpapers/) for more.
-
-Of course, running stable diffusion at this size is kind of rediculous. We present these results to emphasize the power of ToMe to decrease memory usage and speed up evaluation, even at insane image resolutions. Stable Diffusion was trained on 512px images, so we don't actually recommend natively generating at 4k (you should upscale or inpaint instead).
-
 ## License and Contributing
 
 Please refer to the [CC-BY-NC 4.0](LICENSE). For contributing, see [contributing](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md).
