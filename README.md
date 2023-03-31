@@ -16,6 +16,7 @@ ToMe merges tokens based on their similarity, implicitly grouping parts of objec
 
 
 ## News
+ - **[2023.03.30]** Daniel has released his implementation of ToMe for diffusion [here](https://github.com/dbolya/tomesd). Check it out! (Note: this is an external implementation not affiliated with Meta in any way).
  - **[2023.02.08]** We are delighted to announce that the Meta Research Blog has highlighted our work, Token Merging! Check out the article at [Meta Research Blog](https://research.facebook.com/blog/2023/2/token-merging-your-vit-but-faster/) for more information.
  - **[2023.01.31]** We are happy to announce that our paper has been accepted for an oral presentation at ICLR 2023.
  - **[2023.01.30]** We've released checkpoints trained with ToMe for DeiT-Ti, DeiT-S, ViT-B, ViT-L, and ViT-H!
@@ -30,10 +31,15 @@ This repo does not include training code. Instead, we provide a set of tools to 
  - [x] [🔗](#using-timm-models) [timm](https://github.com/rwightman/pytorch-image-models)
  - [x] [🔗](#using-swag-models-through-torch-hub) [swag](https://github.com/facebookresearch/SWAG)
  - [x] [🔗](#training-with-mae) [mae](https://github.com/facebookresearch/mae)
- - [ ] [🔗](#applying-tome-to-stable-diffusion) [stable diffusion](https://github.com/CompVis/stable-diffusion) (coming soon)
- - [ ] [pyslowfast](https://github.com/facebookresearch/SlowFast) (coming soon)
-
+ 
 See the `examples/` directory for a set of usage examples.
+
+<!-- - [ ] [pyslowfast](https://github.com/facebookresearch/SlowFast) (coming at some point) -->
+ToMe has also been implemented externally for other applications:
+ - [x] [🔗 diffusion](https://github.com/dbolya/tomesd)
+ 
+**Note:** these external implementations aren't associated with Meta in any way.
+
 
 ### Using timm models
 
