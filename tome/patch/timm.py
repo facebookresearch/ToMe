@@ -17,6 +17,8 @@ from timm.models.vision_transformer import Attention, Block, VisionTransformer
 from tome.merge import bipartite_soft_matching, merge_source, merge_wavg
 from tome.utils import parse_r
 
+from flash_attn import flash_attn_qkvpacked_func
+
 
 class ToMeBlock(Block):
     """
