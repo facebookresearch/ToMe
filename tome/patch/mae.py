@@ -15,7 +15,7 @@ from timm.models.vision_transformer import Attention, Block, VisionTransformer
 
 from tome.utils import parse_r
 
-from .timm import ToMeBlock, ToMeAttention
+from .timm import ToMeBlock, FlashAttnToMeAttention
 
 
 def make_tome_class(transformer_class):
@@ -100,4 +100,4 @@ def apply_patch(
             module.__class__ = ToMeBlock
             module._tome_info = model._tome_info
         elif isinstance(module, Attention):
-            module.__class__ = ToMeAttention
+            module.__class__ = FlashAttnToMeAttention
